@@ -34,4 +34,15 @@ class TextFormatterTest {
         verify(callback).invoke(expected)
     }
 
+    @Test
+    fun getSumResult_error(){
+        val n = 10
+        val expected = "expected"
+        whenever(numberAdder.sum(eq(n), any())).thenThrow(NumberAdder.InvalidNumberException)
+        whenever(context.getString(R.string.error)).thenReturn(expected)
+        val callback = mock<(String) -> Unit>()
+        textFormatter.getSumResult(n, callback)
+        verify(callback).invoke(expected)
+    }
+
 }
